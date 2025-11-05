@@ -11,9 +11,9 @@
     
 
     <div class="card col-6 offset-3 show-card listing-card" >
-  <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="listing_image">
+  <img src="<%= (listing.image && listing.image.url) ? listing.image.url : 'https://via.placeholder.com/800x400?text=No+Image' %>" class="card-img-top show-img" alt="listing_image">
   <div class="card-body">
-    <p class="card-text"><i><%= listing.owner.username%> </i></p>     
+    <p class="card-text"><i><%= (listing.owner && listing.owner.username) ? listing.owner.username : 'Unknown host' %> </i></p>     
     <p class="card-text">
         <%=listing.description%><br>  &#8377;
          <%= listing.price ? listing.price.toLocaleString("en-IN") : "Price not available" %> / night
@@ -24,7 +24,7 @@
   </div>
 </div>
 
-  <%if(currUser && listing.owner._id.equals(currUser._id)) { %>
+  <% if (typeof currUser !== 'undefined' && currUser && listing.owner && String(listing.owner._id) === String(currUser._id)) { %>
    <div class="btns">
         <a href="/listings/<%=listing.id%>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit </a>
    
@@ -35,7 +35,7 @@
    <% } %>
 
    <div class="col-8 offset-3 mb-3">
-    <% if(currUser) { %>
+    <% if (typeof currUser !== 'undefined' && currUser) { %>
     <hr/>
     <h4>Leave a review</h4>
     <form action="/listings/<%=listing.id%>/reviews" method="POST" novalidate class="needs-validation">
@@ -72,11 +72,11 @@
         <p><b>All Reviews</b></p>
         <%for(let review of listing.reviews){%>
             <div class="card col-5 mb-3 ms-3">
-                <div class="card-body">
-                    <h5 class="card-title">@<%= review.author.username %></h5>
+            <div class="card-body">
+                    <h5 class="card-title">@<%= (review.author && review.author.username) ? review.author.username : 'Unknown' %></h5>
                     <p class="starability-result card-text" data-rating="<%=review.rating%>"></p>
                     <p class="card-text"><%=review.comment%></p>
-                    <% if (currUser && review.author && review.author._id.equals(currUser._id)) { %>
+                    <% if (typeof currUser !== 'undefined' && currUser && review.author && String(review.author._id) === String(currUser._id)) { %>
                         <form class="mb-3" method="POST" action="/listings/<%=listing.id%>/reviews/<%=review.id%>?_method=DELETE">
                             <button class="btn btn-dark">Delete</button>
                         </form>
