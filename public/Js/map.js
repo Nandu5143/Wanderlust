@@ -1,5 +1,8 @@
- mapboxgl.accessToken = mapToken;
 
+
+
+ mapboxgl.accessToken = mapToken;
+    console.log("map.js loaded, mapToken:", mapToken);
     const map = new mapboxgl.Map({
         container: 'map', // container ID
         center: listing.geometry.coordinates, // starting position [lng, lat]. Note that lat must be set between -90 and 90
@@ -14,6 +17,14 @@
             .setHTML(`<h4>${listing.title}</h4><p>Exact location provided after booking</p>`)
         )
         .addTo(map);
+
+
+
+
+
+
+
+
 
     //  map.on('load', () => {
     //     // Load an image from an external URL.
