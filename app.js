@@ -55,8 +55,8 @@ const store =  MongoStore.create({
     touchAfter : 24 *3600 //for lazy update
 });
 
-store.on("error", () =>{
-    console.log("ERRORin MONGO SESSION STORE",err)
+store.on("error", (err) =>{
+    console.log("ERROR IN MONGO SESSION STORE",err)
 });
 
 const sessionOptions = {
