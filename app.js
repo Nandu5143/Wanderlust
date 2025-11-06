@@ -47,6 +47,9 @@ app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 app.use(express.json());
 
+// Avoid 500s for automatic browser favicon requests
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
 const store =  MongoStore.create({
     mongoUrl : Atlas_URL,
     crypto :{
